@@ -1,0 +1,48 @@
+﻿@model ML.RecetaMedica
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="text-center">
+    <h2 class="display-5">Formulario</h2>
+</div>
+@using(Html.BeginForm("Form", "RecetaMedica", FormMethod.Post, new{enctype="multipart/form"}))
+{
+    <div class="row">
+
+
+        <div class="col-md-4">
+            @Html.HiddenFor(model => model.IdReceta)
+
+            @Html.LabelFor(model => model.Paciente.IdPaciente, "Seleccione un paciente:")
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user fa-lg"></i></span>
+                @Html.DropDownListFor(model => model.Paciente.IdPaciente, new SelectList(Model.Paciente.Pacientes, "IdPaciente", "Nombre"), "Selecciona un paciente", new { @class = "form-control"})
+            </div>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.FechaDeConsulta, "Fecha de la consulta: dd-mm-yyyy")
+            @Html.TextBoxFor(model => model.FechaDeConsulta, new{@class="form-control bloquear"})
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Diagnostico)
+            @Html.TextBoxFor(model => model.Diagnostico, new{@class="form-control bloquear"})
+        </div>
+        <div>
+            @Html.LabelFor(model => model.NombreMedico, "Nombre del medico")
+            @Html.TextBoxFor(model => model.NombreMedico, new{@class="form-control bloquear"})
+        </div>
+        <div>
+            @Html.LabelFor(model => model.NotasAdicionales, "Notas adicionales")
+            @Html.TextBoxFor(model => model.NotasAdicionales, new{@class="form-control bloquear"})
+        </div>
+    </div>
+    <br>
+    <div class="text-center">
+        <button id="btnGuardar" class="btn btn-success" type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+        <a id="btnCancelar" class="btn btn-danger" href="@Url.Action("GetAll", "RecetaMedica")"><i class="fa-solid fa-right-from-bracket"></i> Volver</a>
+    </div>
+    <br>
+}
+
